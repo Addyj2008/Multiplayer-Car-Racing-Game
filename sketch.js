@@ -1,29 +1,23 @@
-var ball;
+let ball, database, Ref, gameState, playerCount, form, player, game, allPlayers;
 
 function setup(){
     createCanvas(500,500);
-    ball = createSprite(250,250,10,10);
-    ball.shapeColor = "red";
+    gameState = "WAIT";
+    game = new Game();
+    allPlayers = [];
+    database = firebase.database();
+    game.getState();
+    game.start();
 }
 
 function draw(){
-    background("white");
-    if(keyDown(LEFT_ARROW)){
-        changePosition(-1,0);
+    background(255, 255, 255);
+    if (playerCount === 2) {
+        gameState = "PLAY";
+        form.hide()
     }
-    else if(keyDown(RIGHT_ARROW)){
-        changePosition(1,0);
-    }
-    else if(keyDown(UP_ARROW)){
-        changePosition(0,-1);
-    }
-    else if(keyDown(DOWN_ARROW)){
-        changePosition(0,+1);
+    if (gameState === "PLAY") {
+        game.play();
     }
     drawSprites();
-}
-
-function changePosition(x,y){
-    ball.x = ball.x + x;
-    ball.y = ball.y + y;
 }

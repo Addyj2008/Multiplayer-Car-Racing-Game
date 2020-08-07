@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js"></script>
-<script src="./p5.play.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
-
+    <style>
+      body {margin: 0; padding: 0;}
+      canvas {margin-left: 5%; margin-top: 5%; border: 10px solid black;}
+    </style>
+    <script src = "Libraries/p5.min.js"></script>
+    <script src = "Libraries/p5.dom.min.js"></script>
+    <script src = "Libraries/p5.sound.min.js"></script>
+    <script src = "Libraries/p5.play.js"></script>
+    <script src = "Blueprints/form.js"></script>
+    <script src = "Blueprints/game.js"></script>
+    <script src = "Blueprints/player.js"></script>
+    <script src = "https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src = "https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
+    <script>
+      let firebaseConfig = {
+        apiKey: "AIzaSyAHba1_mqdULr9_VdTRcCKk5_3v6JCp1o0",
+        authDomain: "multiplayer-car-game-65e45.firebaseapp.com",
+        databaseURL: "https://multiplayer-car-game-65e45.firebaseio.com",
+        projectId: "multiplayer-car-game-65e45",
+        storageBucket: "multiplayer-car-game-65e45.appspot.com",
+        messagingSenderId: "966036709244",
+        appId: "1:966036709244:web:6910ce71a9076fb5e94ef9"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
   </head>
   <body>
       <script src="sketch.js"></script>
-  </body>
+    </body>
 </html>
