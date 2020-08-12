@@ -2,7 +2,7 @@ class Player {
     constructor () {
         this.index = null;
         this.name = "";
-        this.distance = {'x' : 0, 'y' : 0};
+        this.distance = {'x' : 0, 'y' : 475};
     }
     getCount() {
         database.ref('playerCount').on('value', function (data) {
@@ -11,6 +11,7 @@ class Player {
     }
     updateCount(count) {
         database.ref('/').update({'playerCount' : count});
+        this.distance.x = (count - 1) * 125 + 25;
     }
     update() {
         let playerIndex = "players/player" + this.index;
