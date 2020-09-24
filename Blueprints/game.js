@@ -1,15 +1,5 @@
 class Game {
     constructor(){}
-    getState() {
-        database.ref('gameState').on("value", function(data) {
-            gameState = data.val();
-        });
-    }
-    updateState(state) {
-        database.ref('/').update({
-            'gameState' : state
-        });
-    }
     start() {
         if (gameState === "WAIT") {
             player = new Player();
@@ -27,23 +17,23 @@ class Game {
         }
     }
     play() {
+        drawSprites();
         if (keyCode === UP_ARROW) {
-            player.distance.y -= 1;
+            player.distance.y -= 10;
             keyCode = 0;
         }
         if (keyCode === DOWN_ARROW) {
-            player.distance.y += 1;
+            player.distance.y += 10;
             keyCode = 0;
         }
         if (keyCode === LEFT_ARROW) {
-            player.distance.x -= 1;
+            player.distance.x -= 5;
             keyCode = 0;
         }
         if (keyCode === RIGHT_ARROW) {
-            player.distance.x += 1;
+            player.distance.x += 5;
             keyCode = 0;
         }
-        text("GAME START!", 0, 15 * height/500)
         Player.getPlayerInfo();
         if (allPlayers.player1 !== undefined) {
             player[0].x = allPlayers.player1.distance.x * width/500;
@@ -61,13 +51,22 @@ class Game {
             player[1].bounceOff(player[3]);
             player[2].bounceOff(player[3]);
             for (loop1 in allPlayers) {
-                allPlayers[loop1].distance = {'x' : allPlayers[loop1].x/width * 500, 'y' : allPlayers[loop1].y/height * 500};
-                //database.ref('players/' + loop1 + '/distance').update({'x' : allPlayers[loop1].distance.x, 'y' : allPlayers[loop1].distance.y});
+                if ("player" + player.index === loop1) {
+                    fill(255, 255, 0);
+                    if (allPlayers[loop1].distance.y <= -4310) {
+                        carsReached += 1;
+                        database.ref('/').update({'carsReached' : carsReached});
+                        gameState = "END";
+                        player.rank = carsReached;
+                    }
+                } else {
+                    fill(80, 80, 80);
+                }
+                text(allPlayers[loop1].name, allPlayers[loop1].distance.x * width/500, allPlayers[loop1].distance.y * height/500);
             }
             player.update();
             camera.position.x = player.distance.x * width/500;
             camera.position.y = player.distance.y * height/500;
         }
-        drawSprites();
     }
 }
